@@ -1,2 +1,9 @@
 myenv/
 node_modules/
+logs
+*.log
+jspm_packages/
+.npm
+.node_repl_history
+*.tgz
+.vscode/
