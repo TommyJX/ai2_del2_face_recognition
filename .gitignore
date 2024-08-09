@@ -1,4 +1,5 @@
 myenv/
+newenv/
 node_modules/
 logs
 *.log
