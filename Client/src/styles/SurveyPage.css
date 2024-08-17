@@ -1,0 +1,85 @@
+.survey-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    /* Position for absolute elements */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    /* Smooth fade-out */
+}
+
+.survey-container.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+    /* Slight movement when fading out */
+}
+
+.survey-question {
+    margin-bottom: 20px;
+}
+
+.survey-question h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.survey-options label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+.survey-options input[type="radio"] {
+    margin-right: 10px;
+}
+
+.survey-question textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.survey-submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #76b041;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.survey-submit-button:hover {
+    background-color: #5e8a31;
+}
+
+/* Back to Homepage Button */
+.back-to-homepage {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 16px;
+    color: #000000;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: black 1px solid;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.back-to-homepage:hover {
+    color: #5e8a31;
+    text-decoration: none;
+}
