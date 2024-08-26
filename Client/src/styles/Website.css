@@ -87,6 +87,23 @@
     color: #76b041;
 }
 
+.language-switcher {
+    background-color: #a7c957;
+    /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.language-switcher:hover {
+    background-color: #76b041;
+    /* Darker blue on hover */
+}
+
 /* Section styles */
 .section {
     padding: 50px;

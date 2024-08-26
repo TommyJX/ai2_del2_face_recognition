@@ -6,15 +6,12 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
-    /* Position for absolute elements */
     transition: opacity 0.5s ease, transform 0.5s ease;
-    /* Smooth fade-out */
 }
 
 .survey-container.fade-out {
     opacity: 0;
     transform: translateY(20px);
-    /* Slight movement when fading out */
 }
 
 .survey-question {
@@ -81,5 +78,5 @@
 
 .back-to-homepage:hover {
     color: #5e8a31;
-    text-decoration: none;
+    text-decoration: underline;
 }

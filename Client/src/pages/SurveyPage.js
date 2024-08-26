@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../styles/SurveyPage.css";
 
 const SurveyPage = () => {
-  const [isAnimating, setIsAnimating] = useState(false); // Track animation state
-  const navigate = useNavigate(); // React Router navigation
+  const [isAnimating, setIsAnimating] = useState(false);
+  const navigate = useNavigate();
 
   const handleBackToHome = () => {
-    setIsAnimating(true); // Start the animation
+    setIsAnimating(true);
     setTimeout(() => {
-      navigate("/"); // Navigate to homepage after animation (e.g., 500ms)
-    }, 500); // Adjust the delay to match your animation duration
+      navigate("/");
+    }, 500);
   };
 
   const [responses, setResponses] = useState({
@@ -28,7 +28,6 @@ const SurveyPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here, you would typically send the responses to a server or process them further
     console.log("Survey Responses:", responses);
     alert("Thank you for your feedback!");
   };
