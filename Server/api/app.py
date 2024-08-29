@@ -11,7 +11,7 @@ import os
 
 # Initialize Flask app
 app = Flask(__name__)
-cors = CORS(app, resources={r'/*': {'origins': ['http://localhost:3000', 'https://ai-vision.onrender.com']}})
+CORS(app, resources={r"/*": {"origins": "https://ai-vision.onrender.com"}})
 
 # Load models
 model_age = load_model('../models/best_age_model.keras')
@@ -172,6 +172,14 @@ def generate_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+# CORS headers to allow requests from your frontend
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = 'https://ai-vision.onrender.com'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    return response
+
 # Routes
 @app.route('/')
 def home():
@@ -205,6 +213,10 @@ def predict_image():
     except Exception as e:
         print(f"Error processing image: {e}")
         return jsonify({'error': f'Error processing image: {str(e)}'}), 500
+    
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg'}
 
 @app.route('/predict-realtime')
 def predict_realtime():
