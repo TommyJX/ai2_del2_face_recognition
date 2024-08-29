@@ -11,7 +11,7 @@ import os
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://ai-vision.onrender.com"}})
+cors = CORS(app, resources={r'/*': {'origins': '*'}})
 
 # Load models
 model_age = load_model('../models/best_age_model.keras')
