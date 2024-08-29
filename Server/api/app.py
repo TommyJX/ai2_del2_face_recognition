@@ -12,9 +12,14 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://ai-vision.onrender.com"}})
 
 # Load models
-model_age = load_model('../../models/best_age_model.keras')
-model_emotion = load_model('../../models/best_emotion_model.keras')
-model_gender = load_model('../../models/best_gender_model.keras')
+model_age = load_model('Server/models/best_age_model.keras')
+model_emotion = load_model('Server/models/best_emotion_model.keras')
+model_gender = load_model('Server/models/best_gender_model.keras')
+
+import os
+print("Current working directory:", os.getcwd())
+print("Available files and directories:", os.listdir(os.getcwd()))
+
 
 # Constants
 GENDER_DICT = {0: 'Male \u2642', 1: 'Female \u2640'}
