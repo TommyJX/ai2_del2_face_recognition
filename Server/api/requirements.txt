@@ -1,0 +1,14 @@
+Flask
+Flask-CORS
+tensorflow
+opencv-python
+Pillow
+mediapipe
+pandas
+numpy
+matplotlib.pyplot
+matplotlib
+seaborn
+tqdm
+scikit-learn
+os
