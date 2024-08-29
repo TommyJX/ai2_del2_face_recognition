@@ -8,10 +8,10 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import mediapipe as mp
 import os
+from flask_cors import cross_origin
 
 # Initialize Flask app
 app = Flask(__name__)
-cors = CORS(app, resources={r'/*': {'origins': '*'}})
 
 # Load models
 model_age = load_model('../models/best_age_model.keras')
@@ -174,10 +174,12 @@ def generate_frames():
 
 # Routes
 @app.route('/')
+@cross_origin(origins=['https://ai-vision.onrender.com'])
 def home():
     return "Flask server is running!"
 
 @app.route('/predict-image', methods=['POST'])
+@cross_origin(origins=['https://ai-vision.onrender.com'])
 def predict_image():
     if 'file' not in request.files:
         return jsonify({'error': 'No file uploaded'}), 400  
@@ -207,6 +209,7 @@ def predict_image():
         return jsonify({'error': f'Error processing image: {str(e)}'}), 500
 
 @app.route('/predict-realtime')
+@cross_origin(origins=['https://ai-vision.onrender.com'])
 def predict_realtime():
     """Stream the video feed with predictions overlaid."""
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
