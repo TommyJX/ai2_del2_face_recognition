@@ -21,7 +21,7 @@ const RealTimePrediction = () => {
     setIsRunning(true);
     // Display the video feed and set the source
     videoRef.current.style.display = "block";
-    videoRef.current.src = "http://127.0.0.1:5000/predict-realtime";
+    videoRef.current.src = `${process.env.REACT_APP_API_URL}/predict-realtime`;
   };
 
   // Stop webcam and prediction

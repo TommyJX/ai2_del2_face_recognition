@@ -9,7 +9,7 @@ import mediapipe as mp
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Load models
 model_age = load_model('../models/best_age_model.keras')
