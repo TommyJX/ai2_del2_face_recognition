@@ -12,9 +12,9 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://ai-vision.onrender.com"}})
 
 # Load models
-model_age = load_model('../models/best_age_model.keras')
-model_emotion = load_model('../models/best_emotion_model.keras')
-model_gender = load_model('../models/best_gender_model.keras')
+model_age = load_model('../../models/best_age_model.keras')
+model_emotion = load_model('../../models/best_emotion_model.keras')
+model_gender = load_model('../../models/best_gender_model.keras')
 
 # Constants
 GENDER_DICT = {0: 'Male \u2642', 1: 'Female \u2640'}
