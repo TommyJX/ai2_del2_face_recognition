@@ -24,9 +24,9 @@ with zipfile.ZipFile('../models/best_gender_model.zip', 'r') as zip_ref:
     zip_ref.extractall('../models')
     
 # Load models
-model_age = load_model('../models/best_age_model.zip')
-model_emotion = load_model('../models/best_emotion_model.zip')
-model_gender = load_model('../models/best_gender_model.zip')
+model_age = load_model('../models/best_age_model.keras')
+model_emotion = load_model('../models/best_emotion_model.keras')
+model_gender = load_model('../models/best_gender_model.keras')
 
 print("Current working directory:", os.getcwd())
 print("Files in current directory:", os.listdir(os.getcwd()))
