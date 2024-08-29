@@ -74,6 +74,8 @@ Applikationen är distribuerad via Render, både frontend och backend är live o
 ## Författare
 
 - Namn: Tommy Wang
+
+## Kursinformation
 - Skola: NBI/Handelsakademin
 - Kurskod: OPA23MA_AI 2 - del 2
 - Kursadministratör: Antonio Prgomet
