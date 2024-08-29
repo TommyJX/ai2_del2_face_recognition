@@ -1,14 +1,57 @@
+/* Real-Time Prediction Page Styles */
 #real-time-prediction-page {
-    margin-top: 50px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
+    background-image: URL('../images/clean_background_webpage.jpeg');
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
 }
 
+
+
+/* Real-Time Section Container */
+.real-time-section {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+/* Hidden Video Feed Styles */
+.video-feed {
+    display: none;
+    border: 5px solid #aed357;
+    border-radius: 8px;
+}
+
+/* Buttons Styles */
+.real-time-button {
+    padding: 15px 25px;
+    margin-top: 20px;
+    background-color: #a7c957;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.real-time-button:hover {
+    background-color: #76b041;
+    transform: translateY(-2px);
+}
+
+/* Center Start Button */
+#real-time-start-button {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Image Input Styles */
 .image-input,
-.real-time-button,
 .upload-button {
-    padding: 10px;
+    padding: 10px 15px;
     margin-top: 20px;
     background-color: #a7c957;
     color: white;
@@ -19,21 +62,54 @@
 }
 
 .image-input:hover,
-.real-time-button:hover,
 .upload-button:hover {
     background-color: #76b041;
 }
 
+/* Image Preview Styles */
 #image-preview {
     margin-top: 20px;
     max-width: 100%;
     border-radius: 10px;
 }
 
+/* Result Section Styles */
 .result {
-    margin-top: 20px;
+    margin-top: 30px;
     background-color: #e9ecef;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 1.1rem;
+    color: #495057;
+    line-height: 1.6;
+}
+
+/* Animation for Navigation */
+.page-container.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Back to Homepage Button */
+.back-to-homepage {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 16px;
+    color: #000000;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    border: black 1px solid;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.back-to-homepage:hover {
+    color: #5e8a31;
+    text-decoration: none;
 }
