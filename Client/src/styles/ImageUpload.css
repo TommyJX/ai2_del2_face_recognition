@@ -16,7 +16,7 @@
 
 #image-upload-page,
 .page-container {
-    background-image: url(../images/clean_background_webpage.jpeg);
+    background-image: url('../images/clean_background_webpage.jpeg');
     background-position: center;
     background-size: cover;
 }
@@ -182,16 +182,18 @@
     /* Green for age confidence */
 }
 
+/* Gender confidence for Male */
 .prediction-gender-male .confidence {
-    color: #142a68;
+    color: #142a68 !important;
     font-weight: 400;
-    /* Blue for gender confidence */
+    /* Blue for male gender confidence */
 }
 
+/* Gender confidence for Female */
 .prediction-gender-female .confidence {
-    color: #ac1e5e;
+    color: #ac1e5e !important;
     font-weight: 400;
-    /* Blue for gender confidence */
+    /* Pink for female gender confidence */
 }
 
 .prediction-emotion-happy .confidence {
@@ -233,13 +235,16 @@
 }
 
 /* Gender and emotion styling stays the same */
+/* For Male Gender */
 .prediction-gender-male {
     color: #1e3a8a;
     font-weight: bold;
 }
 
+/* For Female Gender */
 .prediction-gender-female {
     color: #db2777;
+    font-weight: bold;
 }
 
 /* Emotion-based Colors */

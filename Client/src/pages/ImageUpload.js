@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/ImageUpload.css";
 import Typewriter from "../components/Typewriter.js";
+import "../styles/ImageUpload.css";
 
 const ImageUpload = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -173,12 +173,13 @@ const ImageUpload = () => {
           <div
             id="prediction-gender"
             className={
-              predictionResult.gender === "Male"
+              predictionResult.gender.includes("Male")
                 ? "prediction-gender-male"
                 : "prediction-gender-female"
             }
           >
-            Gender: {predictionResult.gender} <div></div>
+            Gender: {predictionResult.gender}
+            <div></div>
             <span className="confidence">
               ({predictionResult.gender_confidence})
             </span>
