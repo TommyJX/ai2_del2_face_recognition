@@ -11,16 +11,7 @@ import os
 
 # Initialize Flask app
 app = Flask(__name__)
-@app.after_request
-def after_request(response):
-     allowed_origins = ['https://ai-vision.onrender.com']
-     origin = request.headers.get('Origin')
-     if origin in allowed_origins:
-         response.headers.set('Access-Control-Allow-Origin', origin)
-     response.headers.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
-     response.headers.set('Access-Control-Allow-Credentials', 'true')
-     response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, UPDATE')
-     return response
+cors = CORS(app, resources={r'/*': {'origins': ['http://localhost:3000', 'https://ai-vision.onrender.com']}})
 
 # Load models
 model_age = load_model('../models/best_age_model.keras')
