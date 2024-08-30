@@ -50,6 +50,13 @@ face_detection = mp_face_detection.FaceDetection(min_detection_confidence=0.5)
 FONT_PATH = 'C:/Windows/Fonts/seguiemj.ttf'
 
 def preprocess_image(img, use_mediapipe=False):
+    # Resize large images
+    max_size = 1024
+    h, w = img.shape[:2]
+    if h > max_size or w > max_size:
+        scale = max_size / max(h, w)
+        img = cv2.resize(img, (int(w*scale), int(h*scale)))
+
     """Preprocess the image to detect face and crop it."""
     # Ensure the image is in the correct format
     if len(img.shape) == 2:  # If grayscale, convert to BGR
@@ -217,9 +224,12 @@ def predict_image():
         else:
             logger.error("Error: No face detected")
             return jsonify({'error': 'No face detected'}), 400
+    except MemoryError:
+        logger.error("Out of memory error", exc_info=True)
+        return jsonify({'error': 'Server out of memory'}), 500
     except Exception as e:
         logger.error(f"Error processing image: {str(e)}", exc_info=True)
-        return jsonify({'error': 'Internal server error'}), 500
+        return jsonify({'error': 'Internal server error'}), 500    
     
 def allowed_file(filename):
     return '.' in filename and \
