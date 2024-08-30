@@ -15,7 +15,8 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {
     "origins": ["https://ai-vision.onrender.com"],
     "methods": ["GET", "POST", "OPTIONS"],
-    "allow_headers": ["Content-Type", "Authorization"]
+    "allow_headers": ["Content-Type", "Authorization", "X-Requested-With"],
+    "supports_credentials": True
 }})
 
 # Load models
