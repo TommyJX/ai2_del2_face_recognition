@@ -48,10 +48,14 @@ const ImageUpload = () => {
         }
       );
       setPredictionResult(response.data);
-      // Add 'show' class to fade in the result
       document.getElementById("prediction-result").classList.add("show");
     } catch (error) {
-      alert("Error occurred during prediction.");
+      console.error("Error details:", error.response || error);
+      alert(
+        `Error occurred during prediction: ${
+          error.response?.data?.error || error.message
+        }`
+      );
     }
   };
 

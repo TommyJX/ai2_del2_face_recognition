@@ -8,10 +8,15 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import mediapipe as mp
 import os
+import logging
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://ai-vision.onrender.com"}})
+CORS(app, resources={r"/*": {
+    "origins": ["https://ai-vision.onrender.com"],
+    "methods": ["GET", "POST", "OPTIONS"],
+    "allow_headers": ["Content-Type", "Authorization"]
+}})
 
 # Load models
 model_age = load_model('../models/best_age_model.keras')
@@ -172,13 +177,8 @@ def generate_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-# CORS headers to allow requests from your frontend
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = 'https://ai-vision.onrender.com'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    return response
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__) 
 
 # Routes
 @app.route('/')
@@ -187,11 +187,15 @@ def home():
 
 @app.route('/predict-image', methods=['POST'])
 def predict_image():
+    logger.info(f"Received request: {request.method} {request.url}")
+    logger.info(f"Request headers: {request.headers}")
+
     if 'file' not in request.files:
+        logger.error("No file uploaded")
         return jsonify({'error': 'No file uploaded'}), 400  
 
     file = request.files['file']
-    print(f"File received: {file.filename}")
+    logger.info(f"File received: {file.filename}")
 
     try:
         # Read the file into a numpy array
@@ -211,8 +215,8 @@ def predict_image():
             print("Error: No face detected")
             return jsonify({'error': 'No face detected'}), 400
     except Exception as e:
-        print(f"Error processing image: {e}")
-        return jsonify({'error': f'Error processing image: {str(e)}'}), 500
+        logger.error(f"Error processing image: {str(e)}", exc_info=True)
+        return jsonify({'error': 'Internal server error'}), 500
     
 def allowed_file(filename):
     return '.' in filename and \
