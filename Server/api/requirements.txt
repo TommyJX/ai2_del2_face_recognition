@@ -19,5 +19,4 @@ seaborn==0.13.2
 tqdm==4.66.5
 scikit-learn==1.5.1
 protobuf==3.19.6
-memory-profiler
 gunicorn
