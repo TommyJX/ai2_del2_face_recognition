@@ -38,7 +38,7 @@ Detta projekt är en del av min kunskapskontroll i AI 2, del 2. Projektet handla
 
 3. **Kör applikationen lokalt:**
    ```bash
-   gunicorn app:app
+   python app.py
    ```
 
 ### Frontend
