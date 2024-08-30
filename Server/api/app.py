@@ -201,19 +201,21 @@ def predict_image():
     try:
         # Read the file into a numpy array
         file_bytes = np.frombuffer(file.read(), np.uint8)
+        logger.info(f"File size: {len(file_bytes)} bytes")
+        
         # Decode the image, forcing 3 channels (BGR)
         img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
         if img is None:
-            print("Error: Invalid image format")
+            logger.error("Error: Invalid image format")
             return jsonify({'error': 'Invalid image format'}), 400
 
         # Predict gender, age, and emotion
         prediction, _ = predict_gender_age_emotion(img, use_mediapipe=True)
         if prediction:
-            print(f"Prediction: {prediction}")
+            logger.info(f"Prediction: {prediction}")
             return jsonify(prediction)
         else:
-            print("Error: No face detected")
+            logger.error("Error: No face detected")
             return jsonify({'error': 'No face detected'}), 400
     except Exception as e:
         logger.error(f"Error processing image: {str(e)}", exc_info=True)
