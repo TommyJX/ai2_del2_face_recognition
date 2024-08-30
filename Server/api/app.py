@@ -9,6 +9,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 import mediapipe as mp
 import os
 import logging
+from memory_profiler import profile
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -87,6 +88,7 @@ def preprocess_image(img, use_mediapipe=False):
     face = np.expand_dims(face, axis=0)    
     return face, (x, y, w, h)
 
+@profile
 def predict_gender_age_emotion(img, use_mediapipe=False):
     """Predict gender, age, and emotion from an image"""
     processed_img, face_bbox = preprocess_image(img, use_mediapipe)
