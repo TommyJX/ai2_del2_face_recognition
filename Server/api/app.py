@@ -50,49 +50,55 @@ face_detection = mp_face_detection.FaceDetection(min_detection_confidence=0.5)
 FONT_PATH = 'C:/Windows/Fonts/seguiemj.ttf'
 
 def preprocess_image(img, use_mediapipe=False):
-    # Resize large images
-    max_size = 1024
-    h, w = img.shape[:2]
-    if h > max_size or w > max_size:
-        scale = max_size / max(h, w)
-        img = cv2.resize(img, (int(w*scale), int(h*scale)))
+    try:
+        # Resize large images
+        max_size = 512  # Reduce to minimize memory usage
+        h, w = img.shape[:2]
+        if h > max_size or w > max_size:
+            scale = max_size / max(h, w)
+            img = cv2.resize(img, (int(w * scale), int(h * scale)), interpolation=cv2.INTER_AREA)
 
-    """Preprocess the image to detect face and crop it."""
-    # Ensure the image is in the correct format
-    if len(img.shape) == 2:  # If grayscale, convert to BGR
-        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-    elif img.shape[2] == 4:  # If RGBA, convert to BGR
-        img = cv2.cvtColor(img, cv2.COLOR_RGBA2BGR)
-    
-    if use_mediapipe:
-        # Convert the BGR image to RGB
-        rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        results = face_detection.process(rgb_img)
+        """Preprocess the image to detect face and crop it."""
+        # Ensure the image is in the correct format
+        if len(img.shape) == 2:  # If grayscale, convert to BGR
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        elif img.shape[2] == 4:  # If RGBA, convert to BGR
+            img = cv2.cvtColor(img, cv2.COLOR_RGBA2BGR)
+
+        if use_mediapipe:
+            # Convert the BGR image to RGB
+            rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            results = face_detection.process(rgb_img)
+
+            if results.detections:
+                detection = results.detections[0]
+                bboxC = detection.location_data.relative_bounding_box
+                ih, iw, _ = img.shape
+                x, y, w, h = int(bboxC.xmin * iw), int(bboxC.ymin * ih), \
+                             int(bboxC.width * iw), int(bboxC.height * ih)
+                face = img[y:y+h, x:x+w]
+            else:
+                return None, None
+        else:
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(50, 50))
+            if len(faces) > 0:
+                (x, y, w, h) = faces[0]
+                face = img[y:y+h, x:x+w]
+            else:
+                return None, None
+
+        face = cv2.resize(face, (128, 128), interpolation=cv2.INTER_AREA)
+        face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
+        face = face.astype('float32') / 255.0
+        face = np.expand_dims(face, axis=-1)
+        face = np.expand_dims(face, axis=0)
         
-        if results.detections:
-            detection = results.detections[0]
-            bboxC = detection.location_data.relative_bounding_box
-            ih, iw, _ = img.shape
-            x, y, w, h = int(bboxC.xmin * iw), int(bboxC.ymin * ih), \
-                         int(bboxC.width * iw), int(bboxC.height * ih)
-            face = img[y:y+h, x:x+w]
-        else:
-            return None, None
-    else:
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=5, minSize=(50, 50))
-        if len(faces) > 0:
-            (x, y, w, h) = faces[0]
-            face = gray[y:y+h, x:x+w]
-        else:
-            return None, None
-
-    face = cv2.resize(face, (128, 128))
-    face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-    face = face.astype('float32') / 255.0
-    face = np.expand_dims(face, axis=-1)
-    face = np.expand_dims(face, axis=0)    
-    return face, (x, y, w, h)
+        return face, (x, y, w, h)
+    
+    except Exception as e:
+        logging.error(f"Error in preprocessing image: {str(e)}")
+        return None, None
 
 def predict_gender_age_emotion(img, use_mediapipe=False):
     """Predict gender, age, and emotion from an image"""
